@@ -1,0 +1,6 @@
+{
+  "business": "cursosai",
+  "agents": ["ceo-agent","content-agent","voice-agent","quiz-agent","publisher-agent"],
+  "custom_skills": [],
+  "notes": "Auto-generated manifest for Paperclip agent configuration"
+}

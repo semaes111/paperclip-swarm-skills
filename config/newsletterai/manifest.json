@@ -1,0 +1,6 @@
+{
+  "business": "newsletterai",
+  "agents": ["ceo-agent","content-agent","publisher-agent","analytics-agent","cmo-traffic-agent"],
+  "custom_skills": [],
+  "notes": "Auto-generated manifest for Paperclip agent configuration"
+}

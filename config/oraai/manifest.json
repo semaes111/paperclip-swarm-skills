@@ -1,0 +1,6 @@
+{
+  "business": "oraai",
+  "agents": ["ceo-agent","content-agent","cmo-traffic-agent","publisher-agent","telegram-agent","analytics-agent"],
+  "custom_skills": ["astrology-content"],
+  "notes": "Auto-generated manifest for Paperclip agent configuration"
+}

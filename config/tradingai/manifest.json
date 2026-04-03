@@ -1,0 +1,6 @@
+{
+  "business": "tradingai",
+  "agents": ["ceo-agent","quant-data-agent","signal-agent","telegram-agent","cmo-traffic-agent"],
+  "custom_skills": ["telegram-subscription-gate"],
+  "notes": "Auto-generated manifest for Paperclip agent configuration"
+}

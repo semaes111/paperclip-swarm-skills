@@ -1,0 +1,6 @@
+{
+  "business": "numerologiaai",
+  "agents": ["ceo-agent","content-agent","publisher-agent","telegram-agent","voice-agent"],
+  "custom_skills": ["numerology-engine"],
+  "notes": "Auto-generated manifest for Paperclip agent configuration"
+}

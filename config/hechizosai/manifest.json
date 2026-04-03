@@ -1,0 +1,6 @@
+{
+  "business": "hechizosai",
+  "agents": ["ceo-agent","content-agent","publisher-agent","telegram-agent","cmo-traffic-agent"],
+  "custom_skills": ["ritual-generator"],
+  "notes": "Auto-generated manifest for Paperclip agent configuration"
+}

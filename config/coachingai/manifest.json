@@ -1,0 +1,6 @@
+{
+  "business": "coachingai",
+  "agents": ["ceo-agent","coaching-agent","voice-agent","telegram-agent","analytics-agent","cmo-traffic-agent"],
+  "custom_skills": ["telegram-subscription-gate"],
+  "notes": "Auto-generated manifest for Paperclip agent configuration"
+}

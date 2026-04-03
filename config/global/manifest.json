@@ -1,0 +1,6 @@
+{
+  "business": "global",
+  "agents": ["ceo-agent","data-intelligence-agent","competitive-intel-agent","marketing-strategy-agent","lead-research-agent","legal-compliance-agent","financial-control-agent"],
+  "custom_skills": ["dgoj-compliance","rgpd-lopd-spain"],
+  "notes": "Auto-generated manifest for Paperclip agent configuration"
+}

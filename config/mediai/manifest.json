@@ -1,0 +1,6 @@
+{
+  "business": "mediai",
+  "agents": ["ceo-agent","clinical-agent","nutrition-agent","telegram-agent","publisher-agent","analytics-agent"],
+  "custom_skills": ["rgpd-lopd-spain"],
+  "notes": "Auto-generated manifest for Paperclip agent configuration"
+}

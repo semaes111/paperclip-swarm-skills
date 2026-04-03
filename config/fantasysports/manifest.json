@@ -1,0 +1,6 @@
+{
+  "business": "fantasysports",
+  "agents": ["ceo-agent","quant-data-agent","pick-agent","telegram-agent","cmo-traffic-agent"],
+  "custom_skills": ["dgoj-compliance","telegram-subscription-gate"],
+  "notes": "Auto-generated manifest for Paperclip agent configuration"
+}
