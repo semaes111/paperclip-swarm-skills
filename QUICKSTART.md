@@ -410,6 +410,41 @@ curl -X POST ${PAPERCLIP_URL}/api/companies \
 ---
 
 # ═══════════════════════════════════════════════════════
+# PASO 4B: Crear tabla de presupuesto dinámico en Supabase
+# ═══════════════════════════════════════════════════════
+
+```bash
+# Ejecutar en Supabase SQL Editor (o via CLI)
+# Esto crea la tabla que TODOS los agentes consultan antes de gastar
+
+cat << 'SQL' | psql ${SUPABASE_URL}
+CREATE TABLE IF NOT EXISTS shared.budget_config (
+  key TEXT PRIMARY KEY,
+  value DECIMAL NOT NULL,
+  description TEXT,
+  updated_at TIMESTAMPTZ DEFAULT now(),
+  updated_by TEXT DEFAULT 'board_member'
+);
+
+INSERT INTO shared.budget_config (key, value, description) VALUES
+  ('autonomous_limit', 500, 'Max que Atlas aprueba sin Board (€/decisión)'),
+  ('agent_approval_limit', 100, 'Max que un agente gasta sin CEO (€/decisión)'),
+  ('monthly_total_cap', 5000, 'Gasto max total portfolio/mes (€)'),
+  ('monthly_per_business_cap', 500, 'Gasto max por negocio/mes (€)'),
+  ('monthly_per_agent_cap', 150, 'Gasto max por agente/mes (€)'),
+  ('alert_threshold_pct', 80, 'Alerta temprana al X% del cap'),
+  ('emergency_pause_pct', 95, 'Pausa automática al X% del cap'),
+  ('reinvestment_ratio', 0.10, 'Ratio de revenue reinvertible'),
+  ('min_profit_margin', 0.60, 'Margen mínimo antes de gastos discrecionales')
+ON CONFLICT (key) DO NOTHING;
+SQL
+
+echo "✅ Budget config creada. Dr. Sergio puede ajustar via Telegram: /budget set [key] [valor]"
+```
+
+---
+
+# ═══════════════════════════════════════════════════════
 # PASO 5: Registrar agentes globales (C-Suite)
 # ═══════════════════════════════════════════════════════
 

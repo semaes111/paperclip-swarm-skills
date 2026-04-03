@@ -93,28 +93,43 @@ Ver `agents/per-business/` para configuraciones completas por negocio.
 22:00 UTC  — CDO "Hermes": anomaly detection overnight
 ```
 
-### 2. Protocolo de Escalación
+### 2. Protocolo de Escalación (Presupuesto DINÁMICO)
+
+Los límites de gasto son variables y se almacenan en `shared.budget_config` de Supabase.
+El Board Member los ajusta en tiempo real via Telegram (`/budget set [key] [valor]`).
 
 ```
 Nivel 1 (Automático — sin intervención humana):
-├─ Tarea operativa <€50 → Ejecutar directamente
+├─ Gasto ≤ agent_approval_limit (default €100) → Ejecutar directamente
 ├─ Contenido rutinario → Publicar según calendario
 ├─ Métricas dentro de rango → Log y continuar
 └─ Ticket P2/P3 → Resolver en siguiente heartbeat
 
 Nivel 2 (CEO Agent "Atlas" decide):
-├─ Gasto €50-€200 → Atlas aprueba sin escalar
+├─ Gasto ≤ autonomous_limit (default €500) → Atlas aprueba
 ├─ Cambio de precio → Atlas evalúa datos CFO + CDO
 ├─ Activar/pausar campaña → Atlas decide con datos CMO
 └─ Ticket P1 → Atlas resuelve en <1h
 
 Nivel 3 (Board Member — Dr. Sergio):
-├─ Gasto >€200 → Telegram notification + esperar aprobación
+├─ Gasto > autonomous_limit → Telegram notification + esperar aprobación
 ├─ MRR caída >20% en 7 días → Alerta INMEDIATA
 ├─ Nuevo negocio/contratación → Esperar revisión lunes/viernes
 ├─ Cambio legal significativo → CLO prepara brief, Board decide
 └─ Alerta clínica MediAI → Telegram INMEDIATO 24/7
 ```
+
+**Comandos Telegram del Board Member:**
+```
+/budget status          → Ver límites actuales y gasto del mes
+/budget set [key] [€]   → Cambiar cualquier límite al instante
+/budget freeze          → Congelar gastos (solo MediAI+DevOps operan)
+/budget unfreeze        → Restaurar operación normal
+/budget scale up 2x     → Duplicar caps (para meses de lanzamiento)
+/budget scale down 0.5x → Reducir caps (para meses de austeridad)
+```
+
+Ver detalle completo: `company/protocols/dynamic-budget.md`
 
 ### 3. Protocolo de Comunicación
 

@@ -9,23 +9,52 @@
 | **P2** | <24 horas | Agente responsable | Contenido diario, reporte semanal, optimización |
 | **P3** | <72 horas | Agente responsable | Research competidor, backlinks, optimización copy |
 
-## Matriz de decisión por coste
+## Matriz de decisión por coste (DINÁMICA)
+
+Los límites se leen de `shared.budget_config` en Supabase.
+El Board Member los ajusta en tiempo real via Telegram (`/budget set [key] [value]`).
 
 ```
-                    ┌─────────────────┐
-                    │  ¿Cuánto cuesta? │
-                    └────────┬────────┘
-                             │
-              ┌──────────────┼──────────────┐
-              │              │              │
-         < €50          €50-€200        > €200
-              │              │              │
-         Ejecutar       Atlas          Board Member
-         directo        aprueba        aprueba
-              │              │              │
-         Log en         Ticket con     Telegram +
-         Paperclip      justificación  esperar OK
+                    ┌───────────────────────────┐
+                    │  Consultar budget_config   │
+                    │  en shared.budget_config   │
+                    └────────────┬──────────────┘
+                                 │
+              ┌──────────────────┼──────────────────┐
+              │                  │                  │
+     ≤ agent_approval     ≤ autonomous        > autonomous
+       _limit               _limit               _limit
+     (default €100)      (default €500)       (default €500)
+              │                  │                  │
+         Ejecutar           CEO Atlas          Board Member
+         directo            aprueba            aprueba
+              │                  │                  │
+         Log en             Ticket con         Telegram +
+         Paperclip          justificación      esperar OK
 ```
+
+### Límites ajustables por Telegram
+```
+/budget status              → Ver config actual y gasto del mes
+/budget set [key] [valor]   → Cambiar un límite
+/budget freeze              → Congelar todo excepto MediAI + DevOps
+/budget unfreeze            → Restaurar operación normal
+/budget scale up 2x         → Duplicar todos los caps
+/budget scale down 0.5x     → Reducir caps al 50%
+```
+
+### Caps mensuales (Minerva monitorea automáticamente)
+- `monthly_total_cap` (default €5,000) → Si se alcanza el 95%: PAUSA TODO excepto esenciales
+- `monthly_per_business_cap` (default €500) → Si se alcanza: pausa agentes no-críticos del negocio
+- `monthly_per_agent_cap` (default €150) → Si se alcanza: pausa el agente individual
+- `alert_threshold_pct` (default 80%) → Alerta temprana a Atlas
+- `emergency_pause_pct` (default 95%) → Pausa automática
+
+### Revenue-based scaling
+- `reinvestment_ratio` (default 10%) → Porcentaje de revenue reinvertible
+- `min_profit_margin` (default 60%) → Si el margen baja de aquí: recortar gastos
+
+Ver detalle completo: `company/protocols/dynamic-budget.md`
 
 ## Escalación por tipo de incidente
 

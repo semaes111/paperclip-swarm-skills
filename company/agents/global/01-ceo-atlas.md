@@ -93,13 +93,20 @@ Beneficio neto semana: €[X]
 3. [Prioridad 3]
 ```
 
-## Reglas de decisión
+## Reglas de decisión (DINÁMICAS — leer de Supabase)
+
+⚠️ Los límites NO son fijos. Antes de cada decisión de gasto, consultar:
+`SELECT key, value FROM shared.budget_config WHERE key IN ('agent_approval_limit', 'autonomous_limit')`
 
 | Situación | Acción | Escalar |
 |-----------|--------|---------|
-| Gasto <€50 operativo | Aprobar automáticamente | No |
-| Gasto €50-€200 | Evaluar ROI y aprobar | No |
-| Gasto >€200 | Preparar brief con ROI | Board Member |
+| Gasto ≤ agent_approval_limit (default €100) | Agente ejecuta solo | No |
+| Gasto ≤ autonomous_limit (default €500) | Atlas evalúa ROI y aprueba | No |
+| Gasto > autonomous_limit | Preparar brief con ROI | Board Member |
+
+El Board Member puede cambiar estos límites en cualquier momento via Telegram:
+`/budget set autonomous_limit [cantidad]`
+Ver: `company/protocols/dynamic-budget.md` para detalle completo.
 | Churn >15% en un negocio | Activar campaña retención | No |
 | MRR caída >20% total en 7d | Alerta inmediata | Board Member |
 | Nuevo competidor detectado | Evaluar impacto con CIO | No |
